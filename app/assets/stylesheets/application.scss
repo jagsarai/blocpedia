@@ -16,10 +16,15 @@
  @import "bootstrap";
  @import "bootstrap-sprockets";
 
- .user-info {
-   margin-top: 9px;
- }
+ // .user-info {
+ //   margin-top: 9px;
+ // }
 
  .nav {
    margin-top: 5px;
  }
+
+.gravatar{
+  border-radius: 50%;
+  margin-right: 2px;
+}
