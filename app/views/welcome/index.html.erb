@@ -2,10 +2,15 @@
  <div class="jumbotron">
    <h1>Blocpedia</h1>
    <p>Blocpedia is alternative to wikipedia!</p>
-   <p>
-     <%= link_to "Sign In", new_user_session_path %>
+   <% if current_user %>
+    <p>
+      Welcome <%= link_to current_user.username, edit_user_registration_path %>
+   </p>
+   <% else %>
+     <%= link_to "Sign In", new_user_session_path %> or
      <%= link_to "Sign Up", new_user_registration_path %> today!
    </p>
+   <% end %>
  </div>
 
  <div class="row">

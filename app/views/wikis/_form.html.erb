@@ -1,0 +1,26 @@
+<%= form_for [wiki] do |f| %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control', placeholder: "Enter a wiki title" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body %>
+    <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter a wiki body" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :private %>
+    <%= f.check_box :private %>
+  </div>
+
+  <div class=" from-group pull-right">
+   <%= f.submit "Save", class: 'btn btn-success' %>
+  </div>
+
+  <div class="form-group pull-right cancel">
+    <%= link_to "Cancel", wikis_path, class:'btn btn-danger', method: :get %>
+  </div>
+
+<% end %>
