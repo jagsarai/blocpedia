@@ -8,7 +8,17 @@
     <%= link_to "Create", new_wiki_path, class:'btn btn-primary' %>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-md-8">
+    <h3>My Wikis</h3>
+    <% if current_user %>
+      <%= render current_user.wikis %>
+    <% end %>
+  </div>
+</div>
+<hr>
+<h3>All Wikis</h3>
+<br>
 <div class="row">
   <% @wikis.each do |wiki| %>
     <div class="col-md-8">

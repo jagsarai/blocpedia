@@ -31,6 +31,7 @@ users = User.all
     body: Faker::Lorem.paragraph(3)
   )
   wiki.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+  wiki.update_attribute(:updated_at, rand(10.minutes .. 11.months).ago)
 end
 
 admin = User.create!(
