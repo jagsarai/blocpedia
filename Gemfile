@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
-gem 'pundit'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
@@ -21,6 +21,7 @@ gem 'turbolinks'
 gem 'bootstrap-sass'
 gem 'figaro'
 gem 'devise'
+gem 'pundit', '~> 1.1'
 
 group :development, :test do
   gem 'byebug'

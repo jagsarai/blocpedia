@@ -1,6 +1,7 @@
 class WikisController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user, only: [:destroy]
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def index
     @wikis = Wiki.all
   end
@@ -34,6 +35,8 @@ class WikisController < ApplicationController
 
     @wiki.assign_attributes(wiki_params)
 
+    authorize @wiki
+
     if @wiki.save
       flash[:notice] = "Topic was updated."
       redirect_to @wiki
@@ -45,6 +48,7 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
@@ -67,6 +71,11 @@ class WikisController < ApplicationController
       flash[:alert] = "Cannot perform operation."
       redirect_to [@wiki_path, wiki]
     end
+  end
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to [@wiki_path, @wiki]
   end
 
 end

@@ -8,6 +8,12 @@ class User < ActiveRecord::Base
 
  enum role: [:standard, :premium, :admin]
 
+ after_initialize :set_default_role
+
+ def set_default_role
+   self.role ||= :standard
+ end
+
  def avatar_url(size)
    gravatar_id = Digest::MD5::hexdigest(self.email).downcase
    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
