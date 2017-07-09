@@ -1,7 +1,6 @@
 class WikisController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user, except: [:index, :show, :new, :create]
-
+  before_action :authorize_user, only: [:destroy]
   def index
     @wikis = Wiki.all
   end
@@ -51,7 +50,7 @@ class WikisController < ApplicationController
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to action: :index
     else
-      flash.now[:alert] = "there was an eroor deleting the topic."
+      flash.now[:alert] = "there was an error deleting the topic."
       render :show
     end
   end
