@@ -64,14 +64,14 @@ class WikisController < ApplicationController
     params.require(:wiki).permit(:title, :body, :private)
   end
 
-  def authorize_user
-    wiki = Wiki.find(params[:id])
-
-    unless current_user == wiki.user
-      flash[:alert] = "Cannot perform operation."
-      redirect_to [@wiki_path, wiki]
-    end
-  end
+  # def authorize_user
+  #   wiki = Wiki.find(params[:id])
+  #
+  #   unless current_user == wiki.user || current_user.admin?
+  #     flash[:alert] = "Cannot perform operation."
+  #     redirect_to [@wiki_path, wiki]
+  #   end
+  # end
 
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."

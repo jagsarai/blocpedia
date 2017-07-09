@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
- validates :username, length: {minimum: 3, maximum: 10}, presence: true
+ validates :username, length: {minimum: 3, maximum: 100}, presence: true
 
  enum role: [:standard, :premium, :admin]
 
@@ -18,5 +18,10 @@ class User < ActiveRecord::Base
    gravatar_id = Digest::MD5::hexdigest(self.email).downcase
    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
  end
+
+ protected
+ # def confirmation_required?
+ #   false
+ # end
 
 end
