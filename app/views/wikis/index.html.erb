@@ -17,19 +17,56 @@
   </div>
 </div>
 <hr>
-<h3>All Wikis</h3>
-<br>
-<div class="row">
-  <% @wikis.each do |wiki| %>
-    <div class="col-md-8">
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">
-            <%= link_to wiki.title, [@wiki_path, wiki] %>
-          </h4>
-          <br>
+<% if current_user.standard? %>
+  <h3>Wikis</h3>
+  <br>
+  <div class="row">
+    <% @wikis_public.each do |wiki| %>
+      <div class="col-md-8">
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading">
+              <%= link_to wiki.title, [@wiki_path, wiki] %>
+              <small>public</small>
+            </h4>
+            <small>
+                submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.username %>
+                <br>
+                updated <%= time_ago_in_words(wiki.updated_at) %> ago
+                <br>
+            </small>
+            <br>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% else %>
+  <h3>Wikis</h3>
+  <br>
+    <div class="row">
+      <% @wikis.each do |wiki| %>
+        <div class="col-md-8">
+          <div class="media">
+            <div class="media-body">
+              <h4 class="media-heading">
+                <%= link_to wiki.title, [@wiki_path, wiki] %>
+                <% if wiki.private? %>
+                  <small>private</small>
+                <% else %>
+                  <small>public</small>
+                <% end %>
+              </h4>
+              <small>
+                  submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.username %>
+                  <br>
+                  updated <%= time_ago_in_words(wiki.updated_at) %> ago
+                  <br>
+              </small>
+              <br>
+            </div>
+          </div>
+        </div>
+      <% end %>
+  </div>
+<% end %>

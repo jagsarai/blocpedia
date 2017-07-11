@@ -1,11 +1,18 @@
 class ChargesController < ApplicationController
 
   def new
-    @stripe_btn_data = {
-      key:  Rails.configuration.stripe[:publishable_key],
-      description: "Premium Wiki Plan for #{current_user.username}",
-      amount: Amount.default
-    }
+
+    if current_user.standard?
+      @stripe_btn_data = {
+        key:  Rails.configuration.stripe[:publishable_key],
+        description: "Premium Wiki Plan for #{current_user.username}",
+        amount: Amount.default
+      }
+    else
+      flash[:alert] = "You are already a premium member!!"
+      redirect_to wikis_path
+    end
+
   end
 
   def create
@@ -22,7 +29,10 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
-    flash[:notice] = "Thanks for upgrading your account, #{current_user.usernmae}!"
+    current_user.update! role: :premium
+
+    flash[:notice] = "Thanks for upgrading your account, #{current_user.username}!, #{current_user.role}"
+
 
     redirect_to wikis_path
 

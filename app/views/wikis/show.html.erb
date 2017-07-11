@@ -1,6 +1,13 @@
 <div>
   <h1>
     <%= @wiki.title %>
+    <small>
+      <% if @wiki.private? %>
+        private
+      <% else %>
+        public
+      <% end %>
+    </small>
   </h1>
   <small>
       submitted <%= time_ago_in_words(@wiki.created_at) %> ago by <%= @wiki.user.username %>

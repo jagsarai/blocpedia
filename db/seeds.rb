@@ -28,7 +28,8 @@ users = User.all
   wiki = Wiki.create!(
     user: users.sample,
     title: Faker::Lorem.sentence,
-    body: Faker::Lorem.paragraph(3)
+    body: Faker::Lorem.paragraph(3),
+    private: false
   )
   wiki.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
   wiki.update_attribute(:updated_at, rand(10.minutes .. 11.months).ago)

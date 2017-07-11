@@ -4,6 +4,8 @@ class WikisController < ApplicationController
 
   def index
     @wikis = Wiki.all
+    @wikis_private = Wiki.private
+    @wikis_public = Wiki.public
   end
 
   def show
@@ -35,6 +37,7 @@ class WikisController < ApplicationController
     @wiki.assign_attributes(wiki_params)
 
     authorize @wiki
+
 
     if @wiki.save
       flash[:notice] = "Topic was updated."
