@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-8">
+     <%= form_tag charges_path do %>
+       <h2>Premium Account Advantage</h2>
+       <div>
+         <p>As a premium member you can enjoy the following benefits: </p>
+         <ul>
+           <li>Create private wikis </li>
+           <li>Collabrate with other users on a wiki </li>
+           <li> Another cool feature </li>
+         </div>
+         <br>
+       <script class='pull-right stripe-button'
+       src="https://checkout.stripe.com/checkout.js"
+       data-key="<%= @stripe_btn_data[:key] %>"
+       data-amount="<%= @stripe_btn_data[:amount] %>"
+       data-description="<%= @stripe_btn_data[:description] %>" ></script>
+     <% end %>
+   </div>
+ </div>
