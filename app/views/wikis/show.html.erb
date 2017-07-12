@@ -12,7 +12,9 @@
   <small>
       submitted <%= time_ago_in_words(@wiki.created_at) %> ago by <%= @wiki.user.username %>
       <br>
-      updated <%= time_ago_in_words(@wiki.updated_at) %> ago
+      <% if @wiki.edited_by %>
+      updated <%= time_ago_in_words(@wiki.updated_at) %> ago by <%= @wiki.edited_by.username %>
+      <% end %>
   </small>
   <br>
   <br>

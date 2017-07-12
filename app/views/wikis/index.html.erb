@@ -4,6 +4,14 @@
     Welcome to the Blocpedia wiki page,
     feel free to contirbute by providing insighful information on any topic.
   </p>
+  <% if current_user.standard? %>
+  <p>
+    Become a <%= link_to 'premium user', new_charge_path %>
+  <% else %>
+    Premium user: <%= current_user.username %>
+  </p>
+  <small> Unhappy? <%= link_to 'unsubscribe' %> </small>
+  <% end %>
   <div class="pull-right">
     <%= link_to "Create", new_wiki_path, class:'btn btn-primary' %>
   </div>
@@ -11,7 +19,9 @@
 <div class="row">
   <div class="col-md-8">
     <h3>My Wikis</h3>
-    <% if current_user %>
+    <% if current_user.standard? %>
+      <%= render current_user.wikis.public %>
+    <% else %>
       <%= render current_user.wikis %>
     <% end %>
   </div>
@@ -31,8 +41,10 @@
             </h4>
             <small>
                 submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.username %>
+                <% if wiki.edited_by %>
                 <br>
-                updated <%= time_ago_in_words(wiki.updated_at) %> ago
+                updated <%= time_ago_in_words(wiki.updated_at) %> ago by <%= wiki.edited_by.username %>
+                <% end %>
                 <br>
             </small>
             <br>
@@ -59,8 +71,10 @@
               </h4>
               <small>
                   submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.username %>
+                  <% if wiki.edited_by %>
                   <br>
-                  updated <%= time_ago_in_words(wiki.updated_at) %> ago
+                  updated <%= time_ago_in_words(wiki.updated_at) %> ago by <%= wiki.edited_by.username %>
+                  <% end %>
                   <br>
               </small>
               <br>

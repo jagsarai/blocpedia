@@ -2,6 +2,11 @@
  <div class="media-body">
    <h4 class="media-heading">
      <%= link_to wiki.title, wiki_path(wiki) %>
+     <% if wiki.private? %>
+       <small>private</small>
+     <% else %>
+       <small>public</small>
+     <% end %>
    </h4>
    <small>
      submitted <%= time_ago_in_words(wiki.created_at) %> ago by <%= wiki.user.username %>

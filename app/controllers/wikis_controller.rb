@@ -23,7 +23,7 @@ class WikisController < ApplicationController
     if @wiki.save
       redirect_to @wiki, notice: "Wiki was saved successfully."
     else
-      flash.now[:alert] = "Error creating wiki. Please try agian."
+      flash.now[:alert] = "Error creating wiki. Please try again."
       render :new
     end
   end
@@ -38,6 +38,7 @@ class WikisController < ApplicationController
 
     authorize @wiki
 
+    @wiki.edited_by = current_user
 
     if @wiki.save
       flash[:notice] = "Topic was updated."

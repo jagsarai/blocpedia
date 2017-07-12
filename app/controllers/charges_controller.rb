@@ -31,7 +31,7 @@ class ChargesController < ApplicationController
 
     current_user.update! role: :premium
 
-    flash[:notice] = "Thanks for upgrading your account, #{current_user.username}!, #{current_user.role}"
+    flash[:notice] = "Thanks for upgrading your account, #{current_user.username}!"
 
 
     redirect_to wikis_path
@@ -41,10 +41,15 @@ class ChargesController < ApplicationController
     redirect_to new_charge_path
   end
 
+  def delete
+    flash[:alert] = "Are you sure you want to downgrade your account?"
+  end
+
 end
+
 
 class Amount
   def self.default
-    return 500
+    return 1500
   end
 end

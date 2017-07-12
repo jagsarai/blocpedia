@@ -10,10 +10,12 @@
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter a wiki body" %>
   </div>
 
+  <% if current_user.admin? || current_user.premium? && current_user == wiki.user %>
   <div class="form-group">
     <%= f.label :private %>
     <%= f.check_box :private %>
   </div>
+  <% end %>
 
   <div class=" from-group pull-right">
    <%= f.submit "Save", class: 'btn btn-success' %>
