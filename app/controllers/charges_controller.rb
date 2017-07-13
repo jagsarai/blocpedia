@@ -9,41 +9,42 @@ class ChargesController < ApplicationController
         amount: Amount.default
       }
     else
-      flash[:alert] = "You are already a premium member!!"
-      redirect_to wikis_path
+      flash[:alert] = "You are about to unsubscribe, please read the instuctions below carefully!"
     end
 
   end
 
   def create
+    if current_user.standard?
+      customer = Stripe::Customer.create(
+        email: current_user.email,
+        card: params[:stripeToken]
+      )
 
-    customer = Stripe::Customer.create(
-      email: current_user.email,
-      card: params[:stripeToken]
-    )
+      charge = Stripe::Charge.create(
+        customer: customer.id,
+        amount: Amount.default,
+        description: "Premium Wiki Plan - #{current_user.email}",
+        currency: 'usd'
+      )
 
-    charge = Stripe::Charge.create(
-      customer: customer.id,
-      amount: Amount.default,
-      description: "Premium Wiki Plan - #{current_user.email}",
-      currency: 'usd'
-    )
+      current_user.update! role: :premium
 
-    current_user.update! role: :premium
-
-    flash[:notice] = "Thanks for upgrading your account, #{current_user.username}!"
+      flash[:notice] = "Thanks for upgrading your account, #{current_user.username}!"
 
 
-    redirect_to wikis_path
+      redirect_to wikis_path
+    else
+      current_user.update! role: :standard
+      flash[:alert] = "Your are now using a standard account"
 
-  rescue Stripe::CardError => e
-    flash[:alert] = e.message
-    redirect_to new_charge_path
-  end
+      redirect_to wikis_path
+    end
 
-  def delete
-    flash[:alert] = "Are you sure you want to downgrade your account?"
-  end
+    rescue Stripe::CardError => e
+      flash[:alert] = e.message
+      redirect_to new_charge_path
+    end
 
 end
 

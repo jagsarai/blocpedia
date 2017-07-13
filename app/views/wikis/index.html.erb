@@ -8,9 +8,9 @@
   <p>
     Become a <%= link_to 'premium user', new_charge_path %>
   <% else %>
-    Premium user: <%= current_user.username %>
+    Premium Account: <%= current_user.username %>
   </p>
-  <small> Unhappy? <%= link_to 'unsubscribe' %> </small>
+  <small>Unhappy? <%= link_to 'unsubscribe', new_charge_path %> </small>
   <% end %>
   <div class="pull-right">
     <%= link_to "Create", new_wiki_path, class:'btn btn-primary' %>

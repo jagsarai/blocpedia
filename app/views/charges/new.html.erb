@@ -1,21 +1,37 @@
 <div class="row">
   <div class="col-md-8">
-     <%= form_tag charges_path do %>
-       <h2>Premium Account Advantage</h2>
-       <div>
-         <p>As a premium member you can enjoy the following benefits: </p>
-         <ul>
-           <li>Create private wikis </li>
-           <li>Collabrate with other users on a wiki </li>
-           <li> Another cool feature </li>
-         </div>
-         <br>
-         <p> The current enrollment charge is $15 </p>
-       <script class='pull-right stripe-button'
-       src="https://checkout.stripe.com/checkout.js"
-       data-key="<%= @stripe_btn_data[:key] %>"
-       data-amount="<%= @stripe_btn_data[:amount] %>"
-       data-description="<%= @stripe_btn_data[:description] %>" ></script>
-     <% end %>
+    <% if current_user.standard? %>
+       <%= form_tag charges_path do %>
+         <h2>Premium Account Advantage</h2>
+         <div>
+           <p>As a premium member you can enjoy the following benefits: </p>
+           <ul>
+             <li>Create private wikis </li>
+             <li>Collabrate with other users on a wiki </li>
+             <li> Another cool feature </li>
+           </div>
+           <br>
+           <p> The current enrollment charge is $15 </p>
+         <script class='pull-right stripe-button'
+         src="https://checkout.stripe.com/checkout.js"
+         data-key="<%= @stripe_btn_data[:key] %>"
+         data-amount="<%= @stripe_btn_data[:amount] %>"
+         data-description="<%= @stripe_btn_data[:description] %>" ></script>
+       <% end %>
+     <% else %>
+        <p>We will really miss you <%= current_user.username %>!
+          If you decide to get rid of your membership, you will miss out on these awesome features:
+          <ul>
+            <li>Create private wikis </li>
+            <li>Collabrate with other users on a wiki </li>
+            <li> Another cool feature </li>
+          </ul>
+          As a convinent reminder, you are always welcome to be a premium member anytime.
+          If you wish still wish to cancel your membership, please click the button below.
+        </p>
+       <%= button_to 'Cancel Membership', charges_path, class:'btn btn-danger pull-right' %>
+       <br>
+       <%= link_to "Home", wikis_path %>
+    <% end %>
    </div>
  </div>
