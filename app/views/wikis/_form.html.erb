@@ -10,11 +10,19 @@
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter a wiki body" %>
   </div>
 
-  <% if current_user.admin? || current_user.premium? && current_user == wiki.user %>
-  <div class="form-group">
-    <%= f.label :private %>
-    <%= f.check_box :private %>
-  </div>
+  <% if wiki.user %>
+    <% if current_user.admin? ||
+      current_user.premium? && current_user == wiki.user %>
+      <div class="form-group">
+        <%= f.label :private %>
+        <%= f.check_box :private %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="form-group">
+      <%= f.label :private%>
+      <%= f.check_box :private %>
+    </div>
   <% end %>
 
   <div class=" from-group pull-right">
