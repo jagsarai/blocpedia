@@ -18,9 +18,9 @@
         <%= f.check_box :private %>
       </div>
     <% end %>
-  <% else %>
+  <% elsif current_user.premium? || current_user.admin? %>
     <div class="form-group">
-      <%= f.label :private%>
+      <%= f.label :private %>
       <%= f.check_box :private %>
     </div>
   <% end %>

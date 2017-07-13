@@ -13,7 +13,7 @@ class Wiki < ActiveRecord::Base
   end
 
   def self.public
-    where(:private => false)
+    where(:private == false || :private == nil)
   end
 
 end

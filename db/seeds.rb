@@ -47,6 +47,32 @@ admin = User.create!(
   role: 'admin'
 )
 
+standard = User.create!(
+  username: 'standard user',
+  email: 'standarduser@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  confirmation_token: Faker::Crypto.md5,
+  confirmed_at: Faker::Time.between(DateTime.now - 1, DateTime.now),
+  confirmation_sent_at: DateTime.now - 1,
+  created_at: DateTime.now - 1,
+  role: 'standard'
+)
+
+premium = User.create!(
+  username: 'premium user',
+  email: 'premiumuser@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  confirmation_token: Faker::Crypto.md5,
+  confirmed_at: Faker::Time.between(DateTime.now - 1, DateTime.now),
+  confirmation_sent_at: DateTime.now - 1,
+  created_at: DateTime.now - 1,
+  role: 'premium'
+)
+
 puts "#{User.count} users created"
 puts "#{Wiki.count} wikis created"
 puts "#{admin.username} is created as admin"
+puts "#{standard.username} is created as standard user"
+puts "#{premium.username} is created as premium user"

@@ -1,5 +1,5 @@
 class ChargesController < ApplicationController
-
+require 'Wiki'
   def new
 
     if current_user.standard?
@@ -36,6 +36,9 @@ class ChargesController < ApplicationController
       redirect_to wikis_path
     else
       current_user.update! role: :standard
+      current_user.wikis.each do |wiki|
+        wiki.update! private: :false
+      end
       flash[:alert] = "Your are now using a standard account"
 
       redirect_to wikis_path
