@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <%= f.label :body %>
-    <%= f.text_area :body, rows: 10, class: 'form-control', placeholder: "Enter a wiki body" %>
+    <%= f.text_area :body, rows: 10, class: 'form-control', placeholder: "Enter a wiki body", id:'post_body'%>
     <div class="markdown-hints-container pull-right">
       <div class="markdown-hints">
         <div class="markdown-bold">
@@ -48,12 +48,54 @@
     </div>
   <% end %>
   <br>
-  <div class=" from-group pull-right">
+  <div class="from-group pull-right">
    <%= f.submit "Save", class: 'btn btn-success' %>
   </div>
 
   <div class="form-group pull-right cancel">
     <%= link_to "Cancel", wikis_path, class:'btn btn-danger', method: :get %>
   </div>
+  <br>
+  <br>
+  <hr>
+  <div class="form-group">
+    <h3> Preview </h3>
+    <hr>
+    <div class="markdownOutput"></div>
+  </div>
 
 <% end %>
+
+
+
+
+<script>
+  function mkdown(){
+    var converter  = new showdown.Converter(),
+        $post_body = $("#post_body");
+
+    // This line will keep adding new rows for textarea.
+    function postBodyLengthDetector(post_body){
+      var lines = post_body.val().split("\n");
+      post_body.prop('rows', lines.length+5);
+    }
+
+
+    // Textarea rows in default '10', when focusing on this. It will expand.
+    $post_body.focus(function(){
+      postBodyLengthDetector($(this));
+      $('.markdownOutput').html(converter.makeHtml($post_body.val()));
+    });
+
+    // All simple magic goes here, each time when texting anything into textarea
+    //it will be generated to markdown. You are able to see preview right below of textarea.
+    $post_body.keyup(function() {
+      postBodyLengthDetector($(this));
+        var value = $( this ).val(),
+            html  = converter.makeHtml(value);
+            $('.markdownOutput').html(html);
+    });
+  }
+  $(mkdown);
+  $(document).on("turbolinks:load", mkdown);
+</script>

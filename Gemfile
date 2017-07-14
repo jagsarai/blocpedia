@@ -24,6 +24,7 @@ gem 'devise'
 gem 'pundit', '~> 1.1'
 gem 'stripe'
 gem 'redcarpet'
+gem 'showdown-rails'
 
 group :development, :test do
   gem 'byebug'
