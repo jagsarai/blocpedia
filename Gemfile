@@ -23,6 +23,7 @@ gem 'figaro'
 gem 'devise'
 gem 'pundit', '~> 1.1'
 gem 'stripe'
+gem 'redcarpet'
 
 group :development, :test do
   gem 'byebug'

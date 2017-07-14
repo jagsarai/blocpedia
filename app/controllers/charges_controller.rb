@@ -9,7 +9,7 @@ require 'Wiki'
         amount: Amount.default
       }
     else
-      flash[:alert] = "You are about to unsubscribe, please read the instuctions below carefully!"
+      flash[:alert] = "You are about to unsubscribe, please read the instructions below carefully!"
     end
 
   end
