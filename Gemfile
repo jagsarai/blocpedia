@@ -23,7 +23,7 @@ gem 'figaro'
 gem 'devise'
 gem 'pundit', '~> 1.1'
 gem 'stripe'
-gem 'redcarpet'
+gem 'redcarpet', '~> 3.0.0'
 gem 'showdown-rails'
 
 group :development, :test do
