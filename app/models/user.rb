@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
   has_many :wikis, :dependent => :destroy
-  has_many :collaborations
-  has_many :collaboration_wikis, through: :collaborations
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
