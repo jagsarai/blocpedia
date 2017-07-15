@@ -10,6 +10,7 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
+    @collaboration = Collaboration.new
   end
 
   def new
@@ -30,6 +31,7 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @collaborations = Collaboration.new
   end
 
   def update
@@ -41,10 +43,10 @@ class WikisController < ApplicationController
     @wiki.edited_by = current_user
 
     if @wiki.save
-      flash[:notice] = "Topic was updated."
+      flash[:notice] = "Wiki was updated."
       redirect_to @wiki
     else
-      flash.now[:alert] = "Error saving topic. Please try again."
+      flash.now[:alert] = "Error saving wiki. Please try again."
       render :edit
     end
   end

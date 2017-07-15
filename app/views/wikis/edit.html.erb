@@ -9,6 +9,11 @@
     </ul>
   </div>
   <div class="col-md-8">
-    <%= render partial: 'form', locals: {wiki: @wiki} %>
+    <%= render partial: 'wikis/form', locals: {wiki: @wiki} %>
+  </div>
+  <div>
+  <% if @wiki.private? %>
+    <%= render partial: 'collaborations/collaborators', locals: {wiki: @wiki, collaboration: @collaboration} %>
+  <% end %>
   </div>
 </div>

@@ -1,0 +1,15 @@
+<br>
+<div class="row">
+  <div class="col-md-8">
+    <h4>Collaborators</h4>
+    <hr>
+    <div>
+      <% wiki.collaborations.each do |collab| %>
+         <h4> <span class="glyphicon glyphicon-user"></span> <%= collab.user.username.capitalize! %> <small> <%= link_to "Remove", [wiki, collab], method: :delete, data: { confirm: 'Are you sure you want to remove this user?'} if current_user.is_owner_of?(wiki)%></small></h4>
+      <% end %>
+      <% if current_user.is_owner_of? wiki %>
+        <%= render partial: 'collaborations/form', locals: { wiki: @wiki, collaboration: @collaboration } %>
+      <% end %>
+    </div>
+  </div>
+</div>

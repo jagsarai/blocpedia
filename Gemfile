@@ -26,6 +26,7 @@ gem 'stripe'
 gem 'redcarpet', '~> 3.0.0'
 gem 'showdown-rails'
 
+
 group :development, :test do
   gem 'byebug'
   gem 'spring'

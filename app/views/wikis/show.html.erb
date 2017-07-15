@@ -33,6 +33,11 @@
       </div>
       <br>
   <div>
+  <% if @wiki.private? %>
+    <%= render partial: 'collaborations/collaborators', locals: {wiki: @wiki, collaboration: @collaboration} %>
+  <% end %>
+  </div>
+  <div>
     <%= link_to "Home", wikis_path %>
   </div>
 </div>
