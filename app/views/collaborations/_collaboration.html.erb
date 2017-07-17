@@ -1,0 +1,17 @@
+<% current_user.collaborations.each do |collab| %>
+<div class="media">
+ <div class="media-body">
+   <h4 class="media-heading">
+     <%= link_to collab.wiki.title, wiki_path(collab.wiki) %>
+     <% if collab.wiki.private? %>
+       <small>private</small>
+     <% else %>
+       <small>public</small>
+     <% end %>
+   </h4>
+   <small>
+     submitted <%= time_ago_in_words(collab.wiki.created_at) %> ago by <%= collab.wiki.user.username %>
+   </small>
+ </div>
+</div>
+<% end %>

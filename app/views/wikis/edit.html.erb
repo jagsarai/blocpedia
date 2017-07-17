@@ -7,13 +7,11 @@
       <li>Please provide accurate information.</li>
       <li>Don't use any profane and offensive language.</li>
     </ul>
+    <% if @wiki.private? %>
+      <%= render partial: 'collaborations/collaborators', locals: {wiki: @wiki, collaboration: @collaboration} %>
+    <% end %>
   </div>
   <div class="col-md-8">
     <%= render partial: 'wikis/form', locals: {wiki: @wiki} %>
-  </div>
-  <div>
-  <% if @wiki.private? %>
-    <%= render partial: 'collaborations/collaborators', locals: {wiki: @wiki, collaboration: @collaboration} %>
-  <% end %>
   </div>
 </div>

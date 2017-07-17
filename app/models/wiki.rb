@@ -10,12 +10,4 @@ class Wiki < ActiveRecord::Base
   validates :body, length: {minimum: 20}, presence: true
   validates :user, presence: true
 
-  def self.private
-    where(:private => true)
-  end
-
-  def self.public
-    where(:private == false || :private == nil)
-  end
-
 end

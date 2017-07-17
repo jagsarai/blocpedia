@@ -1,7 +1,7 @@
 class CollaborationsController < ApplicationController
   def create
     @wiki = Wiki.find(params[:wiki_id])
-    @user = User.where(:username => params[:search]).first
+    @user = User.where(:email => params[:search]).first
 
     if @user
       @collaboration = Collaboration.new(wiki: @wiki, user: @user)

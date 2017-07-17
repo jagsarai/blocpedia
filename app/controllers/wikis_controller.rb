@@ -3,9 +3,7 @@ class WikisController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
-    @wikis = Wiki.all
-    @wikis_private = Wiki.private
-    @wikis_public = Wiki.public
+    @wikis = policy_scope(Wiki)
   end
 
   def show

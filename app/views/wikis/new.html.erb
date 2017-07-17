@@ -6,6 +6,9 @@
     <ul>
       <li>Please provide accurate information.</li>
       <li>Don't use any profane or offensive language.</li>
+      <% if current_user.admin? || current_user.premium? %>
+        <li>Once the private wiki is created you will have the ability to add collaborators</li>
+      <% end %>
     </ul>
   </div>
   <div class="col-md-8">
